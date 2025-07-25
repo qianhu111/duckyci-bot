@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  duckyci-monitor:
+    build: .
+    environment:
+      TG_BOT_TOKEN: "${TG_BOT_TOKEN}"  # 从环境变量中读取 Bot Token
+      TG_CHAT_ID: "${TG_CHAT_ID}"  # 从环境变量中读取 Chat ID
+      CHECK_INTERVAL: "0.3"  # 每 0.3 秒检查一次
+      AUTHORIZATION_TOKEN: "${AUTHORIZATION_TOKEN}"  # 从环境变量中读取授权 token
+    restart: unless-stopped
+    # 容器日志输出到本地
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
